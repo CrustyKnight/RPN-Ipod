@@ -78,5 +78,5 @@ Definately Urn. It just seems more like cl then fennel
 ** Add
 #+BEGIN_SRC lisp
 (define add
-  (lambda (stack) (push! (+ (pop-last! stack)(pop-last! stack)))))
+  (lambda (stack) (push! stack (+ (pop-last! stack)(pop-last! stack)))))
 #+END_SRC
