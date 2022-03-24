@@ -1,0 +1,58 @@
+#+TITLE: RPN calculator for rockbox on ipod
+#+AUTHOR: Sam Cormode
+
+* RPN-Ipod
+This is a small lua project to create a mostly scientific postfix notation
+calculator for an Ipod classic (6th gen?) running [[https://www.rockbox.org][rockbox]].
+
+This is a work in progress, most of the stuff below is planning
+
+* Interface
+bold is chosen
+Number pad you navigate around, or *layered input system*
+** Numberpad
+Self-explanatory
+** Layered input system
+5 buttons, one is select
+1st layer -> button for digit input, button for symbol input, button for enter
+*** digit input
+two button presses, a base five system
+anything over nine is clamped to 9
+basically, first input is 5s, second is 1s.
+so to input 8 you would input 1, then 3
+button map
+#+BEGIN_SRC
+       TOP/MENU
+
+  LEFT  SELECT  RIGHT
+
+   BOTTOM/PLAY/PAUSE
+
+----------------------
+
+          1
+
+   2      0      3
+
+          4
+#+END_SRC
+*** Symbol Input
+while in a layer, the keys for each layer are shown somewhere or the screen
+
+"Layers"
+Center button is next layer
+1. basic operations (+ - * /)
+2. other stuff (^ sqrt sq inv)
+  (exponent, square root, square, inverse(1/x))
+3. trig stuff (sin, cos, tan, trig2)
+   1. trig2 (asin, acos, atan, nil)
+4. Logamarithic (log, inverse_log, ln, inverse_ln)
+   (Log, 10^x, Ln, e^x)
+5. (factorial function)
+Attempting to go to 6th layer exits
+
+* Language of choice?
+So, I have to use a lua lang, or one that can compile to lua.
+I know of moonscript (my usual), lua, and fennel, and can find some more.
+So, I want to use oczor or haxe, but perhaps fennel.
+Fennel is the only one I know.
