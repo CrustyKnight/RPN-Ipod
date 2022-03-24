@@ -65,3 +65,12 @@ Definately Urn. It just seems more like cl then fennel
 [[./imgs/mockup1.jpg]]
 #+attr_html: :width 200
 [[./imgs/mockup2.jpg]]
+* Features
+- P1 Digit entry
+- P1 stack
+- P2 Symbol entry
+- P2 basic operations
+- P2 Evaluation
+- P3 History
+- P3 layer/sybol input help
+- P3 all scientific commands
