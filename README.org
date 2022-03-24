@@ -56,3 +56,12 @@ So, I have to use a lua lang, or one that can compile to lua.
 I know of moonscript (my usual), lua, and fennel, and can find some more.
 So, I want to use oczor or haxe, but perhaps fennel.
 Fennel is the only one I know.
+Maybe Urn? also a lisp, more influenced by cl
+
+Definately Urn. It just seems more like cl then fennel
+
+* Mockups
+#+attr_html: :width 200
+[[./imgs/mockup1.jpg]]
+#+attr_html: :width 200
+[[./imgs/mockup2.jpg]]
