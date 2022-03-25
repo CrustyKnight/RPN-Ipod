@@ -74,9 +74,98 @@ Definately Urn. It just seems more like cl then fennel
 - P3 History
 - P3 layer/sybol input help
 - P3 all scientific commands
-* Basic math functions
-** Add
-#+BEGIN_SRC lisp
-(define add
-  (lambda (stack) (push! stack (+ (pop-last! stack)(pop-last! stack)))))
+* Programming Stuff
+** Stack init
+#+BEGIN_SRC common-lisp
+(define stack '())
+#+END_SRC
+** Op functions
+*** L1
+**** Add
+#+BEGIN_SRC common-lisp
+(defun add (stack)
+  (push! stack (+ (pop-last! stack)(pop-last! stack))))
+#+END_SRC
+**** Subtract
+#+BEGIN_SRC common-lisp
+(defun sub (stack)
+  (let [(b (pop-last! stack)) (a (pop-last! stack))]
+       (push! stack (- a b))))
+#+END_SRC
+**** Mult
+#+BEGIN_SRC common-lisp
+(defun mult (stack)
+  (push! stack (* (pop-last! stack)(pop-last! stack))))
+#+END_SRC
+**** Div
+#+BEGIN_SRC common-lisp
+(defun div (stack)
+  (let [(b (pop-last! stack)) (a (pop-last! stack))]
+  (push! stack (\ a b))))
+#+END_SRC
+*** L2
+**** Exponent
+#+BEGIN_SRC common-lisp
+(defun exp (stack)
+  (let [(b (pop-last! stack)) (a (pop-last! stack))]
+       (push! stack (expt b a))))
+#+END_SRC
+**** Sqrt
+#+BEGIN_SRC common-lisp
+(defun sqrt (stack)
+  (let [(b (pop-last! stack)) (a (pop-last! stack))]
+       (push! stack (math/sqrt b a))))
+#+END_SRC
+**** Square
+#+BEGIN_SRC common-lisp
+(defun sqrt (stack) (push! (expt (pop-last! stack) 2)))
+#+END_SRC
+**** Inverse
+#+BEGIN_SRC common-lisp
+(defun sqrt (stack) (push! (\ 1 (pop-last! stack))))
+#+END_SRC
+
+*** L3
+**** sin
+#+BEGIN_SRC common-lisp
+(defun sin (stack) (push! (math/sin (pop-last! stack))))
+#+END_SRC
+**** cos
+#+BEGIN_SRC common-lisp
+(defun cos (stack) (push! (math/cos (pop-last! stack))))
+#+END_SRC
+**** tan
+#+BEGIN_SRC common-lisp
+(defun tan (stack) (push! (math/tan (pop-last! stack))))
+#+END_SRC
+*** Trig 2
+**** asin
+#+BEGIN_SRC common-lisp
+(defun asin (stack) (push! (math/asin (pop-last! stack))))
+#+END_SRC
+**** acos
+#+BEGIN_SRC common-lisp
+(defun acos (stack) (push! (math/acos (pop-last! stack))))
+#+END_SRC
+**** atan
+#+BEGIN_SRC common-lisp
+(defun atan (stack) (push! (math/atan (pop-last! stack))))
+#+END_SRC
+
+*** L4
+**** Log_10
+#+BEGIN_SRC common-lisp
+(defun log10 (stack) (push! (math/log (pop-last! stack) 10)))
+#+END_SRC
+**** Log-Inverse
+#+BEGIN_SRC common-lisp
+(defun log10-inverse (stack) (push! (expt 10 (pop-last! stack))))
+#+END_SRC
+**** Natural log
+#+BEGIN_SRC common-lisp
+(defun ln (stack) (push! (math/log (pop-last! stack))))
+#+END_SRC
+**** Ln-Inverse
+#+BEGIN_SRC common-lisp
+(defun ln-inverse (stack) (push! (math/exp (pop-last! stack))))
 #+END_SRC
