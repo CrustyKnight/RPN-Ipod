@@ -7,6 +7,7 @@
 (defmacro while-true (&body)
   `(while true (progn ,@body)))
 (require :actions)
+(define mbuttons :hidden (require :menubuttons))
 
 ;; Wrapping globals that urn does not seem to know about/ipod only stuff
 (define wrapper
@@ -16,20 +17,76 @@
 (define _G (.> wrapper :_G))
 ;; end wrapping
 
+(import lua/string string)
+
 
 (define _print :hidden
   (require "print"))
-(define home {})
-(.<! home (.> (.> rb :actions) :PLA_UP)
-     (lambda () ((.> _print :f) :menu)))
+((.> _print :clear))
+((.> _print :opt :overflow) :auto)
 
-
-(define mode :mutable home)
+(define mode :mutable nil)
 (defun switch-mode (nmode)
   (set! mode (.> _G nmode)))
+
+(define ps (.> rb :lcd_puts))
+; stack is just a list. end of the list is the top of the stack
+; area is a list with for values: '(x y width height)
+;; x and y are the coordinates of the top character
+;; units for x,y,w,h are in characters
+; note: width limit is 54
+(defun print_stack (stack area)
+  ; basically, print the list straight down from the top, but start with end - height + 1
+  (let* ((x (nth area 1))
+         (y (nth area 2))
+         (w (nth area 3))
+         (h (nth area 4)))
+    (with (start (- (+ 1 (n stack)) h))
+          (for i start (n stack) 1
+               (ps x (- i start) (string/sub (tostring (nth stack i)) 1 w))))))
+
+(define stack :mutable '())
+(push! stack 1)
+(push! stack 2)
+(push! stack 3)
+(push! stack 4)
+(push! stack 5)
+(push! stack 6)
+(push! stack 7)
+(push! stack 8)
+(push! stack 9)
+(push! stack 10)
+
+(define home {})
+(.<! home (.> mbuttons :LEFT)
+     (lambda () ((.> _print :f) :symbol)))
+(.<! home (.> mbuttons :RIGHT)
+     (lambda () ((.> _print :f) :number)))
+(.<! home :draw
+     (lambda () (progn
+                  (self rb :lcd_clear_display)
+                  (print_stack stack '(1 1 0 7))
+                  (self rb :lcd_update))))
+
+(set! mode home)
+
+(defun menu ()
+  (let* [(options (list->struct '( "cancel" "clear entry" "reset" "quit")))
+         (choice (+ 1 ((.> rb :do_menu) "RPN-Ipod menu" options nil false)))
+    ]
+    (cond
+      [(= choice 1) (switch-mode :home)]
+      [(= choice 2) nil]
+      [(= choice 3) nil]
+      [(= choice 4) ((.> (require :os) :exit))])))
+
+
 
 (while-true
  (let* [(action ((.> rb :get_plugin_action) -1))]
    (cond
-     ((= action (.> (.> rb :actions) :PLA_EXIT)) ((.> (require :os) :exit)))
-     (true ((.> mode action))))))
+     ((= action (.> mbuttons :EXIT)) ((.> (require :os) :exit)))
+     ((= action (.> mbuttons :CANCEL)) (menu))
+     ((.> mode action) ((.> mode action)))
+     (true nil))
+   ((.> mode :draw))))
