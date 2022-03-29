@@ -1,6 +1,16 @@
 #+TITLE: RPN calculator for rockbox on ipod
 #+AUTHOR: Sam Cormode
 
+* UPDATE:
+I have decided to stop with this project, and change it to a shell based RPN
+calculator is urn, because it turns out my target device does not support
+floating point integers and only has integers
+
+I don't want to have to do a bunch of stuff I don't know how to do, so I'm just
+stopping this.
+
+I will try to re-create in a shell with a TUI instead
+
 * RPN-Ipod
 This is a small lua project to create a mostly scientific postfix notation
 calculator for an Ipod classic (6th gen?) running [[https://www.rockbox.org][rockbox]].
@@ -65,6 +75,68 @@ Definately Urn. It just seems more like cl then fennel
 [[./imgs/mockup1.jpg]]
 #+attr_html: :width 200
 [[./imgs/mockup2.jpg]]
+** Text mockup
+Dimensions are I think 39x16 (WxH)
+*** Basic layout
+#+BEGIN_SRC
++----------------------------+---------+
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|                            |         |
+|----------------------------+---------+
+|                            |         |
++--------------------------------------+
+#+END_SRC
+*** Help menu
+#+BEGIN_SRC
++----------------------------+--------+
+|                            |        |
+|          shshs             |        |
+|                            |        |
+|                            |        |
+|                            |        |
+|                            |        |
+|   shshs          shshs     |        |
+|                            |        |
+|                            |        |
+|                            |        |
+|                            |        |
+|           shshs            |        |
+|                            |        |
+|----------------------------+--------+
+|                            |        |
++-------------------------------------+
+#+END_SRC
+*** Home screen (filled in with stacks)
+#+BEGIN_SRC
++----------------------------+---------+
+| ***                        |      ** |
+| ***                        |       * |
+| ***                        |       * |
+| ***                        |      ** |
+| ***                        |     *** |
+| ***                        |       * |
+| ***                        |      ** |
+| ***                        |       * |
+| ***                        |      ** |
+| ***                        |      ** |
+| ***                        |       * |
+| ***                        |     *** |
+| ***                        |       * |
+|----------------------------+---------+
+|                            |         |
++--------------------------------------+
+#+END_SRC
 * Features
 - P1 Digit entry
 - P1 stack

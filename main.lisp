@@ -44,6 +44,20 @@
     (with (start (- (+ 1 (n stack)) h))
           (for i start (n stack) 1
                (ps x (- i start) (string/sub (tostring (nth stack i)) 1 w))))))
+(defun print_nstack_r (stack area)
+  (let* ((x (nth area 1))
+         (y (nth area 2))
+         (w (nth area 3))
+         (h (nth area 4)))
+    (with (start (- (+ 1 (n stack)) h))
+          (for i start (n stack) 1
+               (if (> (string/len (tostring (nth stack i))) w)
+                   (ps x (- i start)
+                       (string/format (.. "%" w "d") (nth stack i)))
+                   (ps x (- i start)
+                       (string/format (.. "%1." (- w 7) "e") (nth stack i)))
+
+                   )))))
 
 (define stack :mutable '())
 (push! stack 1)
@@ -65,7 +79,13 @@
 (.<! home :draw
      (lambda () (progn
                   (self rb :lcd_clear_display)
-                  (print_stack stack '(1 1 0 7))
+                  ;(ps x y msg)
+                  (for i 1 15 1 (ps 0 i "│"))
+                  (for i 1 15 1 (ps 29 i "│"))
+                  (for i 1 15 1 (ps 39 i "│"))
+                  (ps 0 0  "┌────────────────────────────┬─────────┐")
+                  (ps 0 14 "├────────────────────────────┼─────────┤")
+                  (ps 0 16 "└────────────────────────────┴─────────┘")
                   (self rb :lcd_update))))
 
 (set! mode home)
